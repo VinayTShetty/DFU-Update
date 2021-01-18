@@ -2,7 +2,11 @@ package com.dfu.example;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import no.nordicsemi.android.dfu.DfuServiceController;
 import no.nordicsemi.android.dfu.DfuServiceInitiator;
@@ -12,10 +16,24 @@ public class MainActivity extends AppCompatActivity {
     String deviceAddress="D4:A6:CB:43:B6:70";
     String deviceName="Succorfish SC2";
     boolean keepBond =true;
+    Button helloworld;
+    Intent intent ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        helloworld=(Button)findViewById(R.id.hello_worls);
+        helloworld.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*");
+                startActivityForResult(intent, 7);
+            }
+        });
+    }
+
+   /* public void startDFUupload(){
         final DfuServiceInitiator starter = new DfuServiceInitiator(deviceAddress)
                 .setDeviceName(deviceName)
                 .setKeepBond(keepBond);
@@ -39,5 +57,5 @@ public class MainActivity extends AppCompatActivity {
             starter.setBinOrHex(mFileType, mFileStreamUri, mFilePath).setInitFile(mInitFileStreamUri, mInitFilePath);
         }
         final DfuServiceController controller = starter.start(this, DfuService.class);
-    }
+    }*/
 }
